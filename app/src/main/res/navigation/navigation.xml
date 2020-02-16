@@ -14,28 +14,37 @@
             android:id="@+id/navigateToDetailFragment"
             app:destination="@+id/computerDetailFragment">
             <argument
-                android:name="count"
+                android:name="id"
                 android:defaultValue="0"
                 app:argType="integer" />
+            <argument
+                android:name="name"
+                app:argType="string"/>
         </action>
     </fragment>
 
     <fragment
         android:id="@+id/computerDetailFragment"
         android:name="com.example.computerdatabase.ui.computerDetail.ComputerDetailFragment"
-        android:label="fragment_computer_detail"
+        android:label="sdffds"
         tools:layout="@layout/fragment_computer_detail">
         <argument
-            android:name="count"
+            android:name="id"
             android:defaultValue="0"
             app:argType="integer" />
+        <argument
+            android:name="name"
+            app:argType="string"/>
         <action
             android:id="@+id/toDetail"
             app:destination="@id/computerDetailFragment">
             <argument
-                android:name="count"
+                android:name="id"
                 android:defaultValue="0"
                 app:argType="integer" />
+            <argument
+                android:name="name"
+                app:argType="string"/>
         </action>
     </fragment>
 

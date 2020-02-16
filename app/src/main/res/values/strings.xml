@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">ComputerDatabase</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="computer_list_textInput_hint">Search</string>
 
     <string name="item_computer_title_name">name</string>
     <string name="item_computer_title_company">company</string>
 
-    <string name="empty_computers">No computers found</string>
+    <string name="item_description_title">Description</string>
 
+    <string name="empty_computers">No computers found</string>
     <string name="message_error_invalid_activity">Invalid Activity</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.computerdatabase.ui.computerList
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +18,12 @@ import com.example.computerdatabase.ui.computerList.adapter.ComputerListAdapter
 import kotlinx.android.synthetic.main.error_status.*
 import kotlinx.android.synthetic.main.fragment_computer_list.*
 
-class ComputerListFragment : Fragment() {
+class ComputerListFragment : Fragment(), ComputerListAdapter.ComputerListAdapterListener {
 
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: OnComputerListListener? = null
 
     private val model: ComputerListViewModel by viewModels()
-    private val adapter = ComputerListAdapter()
+    private val adapter = ComputerListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +53,10 @@ class ComputerListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnComputerListListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnComputerListListener")
         }
     }
 
@@ -109,9 +108,11 @@ class ComputerListFragment : Fragment() {
         error.visibility = View.VISIBLE
     }
 
+    override fun onClick(id: Int, name: String) {
+        listener?.navigateToComputerDetail(id, name)
+    }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    interface OnComputerListListener {
+        fun navigateToComputerDetail(id: Int, name: String)
     }
 }

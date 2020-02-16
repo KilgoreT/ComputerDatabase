@@ -1,6 +1,9 @@
 package com.example.computerdatabase.di
 
-import com.example.computerdatabase.api.NetworkService
+import com.example.computerdatabase.datasource.api.NetworkService
+import com.example.computerdatabase.datasource.room.dao.ComputerDetailDao
+import com.example.computerdatabase.repository.DatabaseRepository
+import com.example.computerdatabase.repository.DatabaseRepositoryInterface
 import com.example.computerdatabase.repository.NetworkRepository
 import com.example.computerdatabase.repository.NetworkRepositoryInterface
 import dagger.Module
@@ -16,20 +19,10 @@ object RepositoryModule {
         return NetworkRepository(api)
     }
 
-//    @Provides
-//    @Reusable
-//    @JvmStatic
-//    internal fun provideDatabaseRepository(
-//        database: AppDatabase,
-//        partnerDbMapper: PartnerDbMapper,
-//        pointDbMapper: PointDbMapper,
-//        pointWithPartnerDbMapper: PointWithPartnerDbMapper
-//    ): DatabaseRepositoryInterface {
-//        return DatabaseRepository(
-//            database,
-//            partnerDbMapper,
-//            pointDbMapper,
-//            pointWithPartnerDbMapper
-//        )
-//    }
+    @Provides
+    @Reusable
+    @JvmStatic
+    internal fun provideDatabaseRepository(computerDetailDao: ComputerDetailDao): DatabaseRepositoryInterface {
+        return DatabaseRepository(computerDetailDao)
+    }
 }

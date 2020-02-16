@@ -2,6 +2,7 @@ package com.example.computerdatabase
 
 import android.app.Application
 import com.example.computerdatabase.di.AppComponent
+import com.example.computerdatabase.di.AppContextModule
 import com.example.computerdatabase.di.DaggerAppComponent
 
 class App: Application() {
@@ -22,7 +23,7 @@ class App: Application() {
         if (!::mAppComponent.isInitialized) {
             mAppComponent = DaggerAppComponent
                 .builder()
-//                .appContextModule(AppContextModule(this))
+                .appContextModule(AppContextModule(this))
                 .build()
         }
         return mAppComponent

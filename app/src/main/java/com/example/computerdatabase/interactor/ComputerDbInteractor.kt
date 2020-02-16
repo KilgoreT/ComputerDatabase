@@ -7,14 +7,14 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ComputerDbInteractor @Inject constructor(
-    private val repository: NetworkRepositoryInterface
+    private val networkRepository: NetworkRepositoryInterface
 ): ComputerDbInteractorInterface {
 
     override fun getComputers(page: Int, filter: String): Single<ComputerList> {
-        return repository.getComputers(page, filter)
+        return networkRepository.getComputers(page, filter)
     }
 
     override fun getComputerDetail(id: Int): Single<ComputerDetail> {
-        return repository.getComputerDetail(id)
+        return networkRepository.getComputerDetail(id)
     }
 }

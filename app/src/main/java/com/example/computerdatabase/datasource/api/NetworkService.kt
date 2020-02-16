@@ -1,4 +1,4 @@
-package com.example.computerdatabase.api
+package com.example.computerdatabase.datasource.api
 
 import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail

@@ -10,17 +10,19 @@ import com.example.computerdatabase.R
 import com.example.computerdatabase.databinding.ItemComputerBinding
 import com.example.computerdatabase.entity.Computer
 
-class ComputerListAdapter: PagedListAdapter<Computer, ComputerListAdapter.ComputerViewHolder>(
+class ComputerListAdapter(
+    private val listener: ComputerListAdapterListener
+): PagedListAdapter<Computer, ComputerListAdapter.ComputerViewHolder>(
     DIFF_CALLBACK
 ) {
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ComputerViewHolder {
         val binding: ItemComputerBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_computer, parent, false)
         return ComputerViewHolder(
-            binding
+            binding,
+            listener
         )
     }
 
@@ -29,9 +31,21 @@ class ComputerListAdapter: PagedListAdapter<Computer, ComputerListAdapter.Comput
     }
 
 
-    class ComputerViewHolder(private val binding: ItemComputerBinding): RecyclerView.ViewHolder(binding.root) {
+    class ComputerViewHolder(
+        private val binding: ItemComputerBinding,
+        listener: ComputerListAdapterListener
+    ): RecyclerView.ViewHolder(binding.root) {
         private val model = ComputerViewModel()
+
+        init {
+            binding.root.setOnClickListener {
+                val id = binding.id!!
+                listener.onClick(id, model.getName().value.toString())
+            }
+        }
+
         fun bind(computer: Computer) {
+            binding.id = computer.id
             model.bind(computer)
             binding.vm = model
         }
@@ -43,6 +57,10 @@ class ComputerListAdapter: PagedListAdapter<Computer, ComputerListAdapter.Comput
             override fun areItemsTheSame(oldItem: Computer, newItem: Computer): Boolean = oldItem.id == newItem.id
             override fun areContentsTheSame(oldItem: Computer, newItem: Computer): Boolean =  oldItem.equals(newItem)
         }
+    }
+
+    interface ComputerListAdapterListener {
+        fun onClick(id: Int, name: String)
     }
 
 }

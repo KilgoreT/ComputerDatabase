@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.example.computerdatabase.ui.computerList.adapter.ComputerViewModel" />
+        <variable
+            name="id"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,6 +1,6 @@
 package com.example.computerdatabase.repository
 
-import com.example.computerdatabase.api.NetworkService
+import com.example.computerdatabase.datasource.api.NetworkService
 import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail
 import com.example.computerdatabase.entity.ComputerList

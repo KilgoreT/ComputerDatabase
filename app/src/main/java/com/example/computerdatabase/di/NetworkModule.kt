@@ -1,7 +1,7 @@
 package com.example.computerdatabase.di
 
 import com.example.computerdatabase.BuildConfig
-import com.example.computerdatabase.api.NetworkService
+import com.example.computerdatabase.datasource.api.NetworkService
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

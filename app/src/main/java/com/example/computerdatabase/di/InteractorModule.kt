@@ -3,6 +3,7 @@ package com.example.computerdatabase.di
 import com.example.computerdatabase.interactor.ComputerDbInteractor
 import com.example.computerdatabase.interactor.ComputerDbInteractorInterface
 import com.example.computerdatabase.interactor.ComputerDbOfflineDecorator
+import com.example.computerdatabase.repository.DatabaseRepositoryInterface
 import com.example.computerdatabase.repository.NetworkRepositoryInterface
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,7 @@ object InteractorModule {
     @Provides
     @Reusable
     @JvmStatic
-    internal fun provideMapInteractor(networkRepository: NetworkRepositoryInterface): ComputerDbInteractorInterface {
-        return ComputerDbOfflineDecorator(ComputerDbInteractor(networkRepository))
+    internal fun provideMapInteractor(networkRepository: NetworkRepositoryInterface, databaseRepository: DatabaseRepositoryInterface): ComputerDbInteractorInterface {
+        return ComputerDbOfflineDecorator(databaseRepository, ComputerDbInteractor(networkRepository))
     }
 }

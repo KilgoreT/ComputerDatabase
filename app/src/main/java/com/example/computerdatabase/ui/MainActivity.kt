@@ -16,8 +16,9 @@ import com.example.computerdatabase.ui.computerList.ComputerListFragment
 import com.example.computerdatabase.ui.computerList.ComputerListFragmentDirections
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), ComputerListFragment.OnFragmentInteractionListener,
+class MainActivity : AppCompatActivity(), ComputerListFragment.OnComputerListListener,
     ComputerDetailFragment.OnFragmentInteractionListener {
+
 
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -37,16 +38,22 @@ class MainActivity : AppCompatActivity(), ComputerListFragment.OnFragmentInterac
             .Builder(R.id.computerListFragment)
             .build()
         setupActionBarWithNavController(getNavController(), appBarConfiguration)
+
+        getNavController().addOnDestinationChangedListener{ controller, destination, arguments ->
+            if (destination.id == R.id.computerDetailFragment) {
+                supportActionBar?.title = arguments?.get("name").toString()
+            }
+        }
     }
 
     private fun getNavController(): NavController {
         return findNavController(R.id.host)
     }
 
-    private fun getNavDirection(count: Int): NavDirections? {
+    private fun getNavDirection(id: Int, name: String): NavDirections? {
         return when(getNavController().currentDestination?.id) {
-            R.id.computerDetailFragment -> ComputerDetailFragmentDirections.toDetail(count)
-            R.id.computerListFragment -> ComputerListFragmentDirections.navigateToDetailFragment(count)
+            R.id.computerDetailFragment -> ComputerDetailFragmentDirections.toDetail(id, name)
+            R.id.computerListFragment -> ComputerListFragmentDirections.navigateToDetailFragment(id, name)
             else -> {
                 null
             }
@@ -55,5 +62,12 @@ class MainActivity : AppCompatActivity(), ComputerListFragment.OnFragmentInterac
 
     override fun onSupportNavigateUp(): Boolean {
         return getNavController().popBackStack() || super.onSupportNavigateUp()
+    }
+
+    override fun navigateToComputerDetail(id: Int, name: String) {
+        val direction = getNavDirection(id, name)
+        if (direction != null) {
+            getNavController().navigate(direction)
+        }
     }
 }

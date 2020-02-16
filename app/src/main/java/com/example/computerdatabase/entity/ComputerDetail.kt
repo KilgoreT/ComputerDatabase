@@ -1,11 +1,17 @@
 package com.example.computerdatabase.entity
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class ComputerDetail(
-    val id: Int,
-    val name: String,
-    val introduced: String?,
-    val discounted: String?,
-    val imageUrl: String?,
-    val company: Company?,
-    val description: String
+    @PrimaryKey
+    var id: Int,
+    var name: String,
+    var introduced: String?,
+    var discounted: String?,
+    var imageUrl: String?,
+    @Embedded(prefix = "company") var company: Company?,
+    var description: String?
 )
