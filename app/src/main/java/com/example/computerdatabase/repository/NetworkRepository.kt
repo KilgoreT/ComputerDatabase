@@ -10,8 +10,8 @@ import javax.inject.Inject
 class NetworkRepository @Inject constructor(
     private val api: NetworkService
 ): NetworkRepositoryInterface  {
-    override fun getComputers(): Single<ComputerList> {
-        return api.getComputerList(0, "")
+    override fun getComputers(page: Int, filter: String): Single<ComputerList> {
+        return api.getComputerList(page, filter)
     }
 
     override fun getComputerDetail(id: Int): Single<ComputerDetail> {

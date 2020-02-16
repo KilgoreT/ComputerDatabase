@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.computerList.ComputerListFragment">
+
+  <com.google.android.material.textfield.TextInputLayout
+      style="@style/InputLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/defSmall"
+      android:hint="@string/computer_list_textInput_hint">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <View
+      style="@style/Divider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/defDivider"
+      />
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/empty_computer_list"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/error"
+        layout="@layout/error_status"
+        android:visibility="gone"/>
+
+  </FrameLayout>
+
+</LinearLayout>

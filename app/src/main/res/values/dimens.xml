@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="defZero">0dp</dimen>
+    <dimen name="defSmall">8dp</dimen>
+    <dimen name="defMiddle">16dp</dimen>
+    <dimen name="defBig">32dp</dimen>
+    <dimen name="defDivider">1dp</dimen>
+</resources>

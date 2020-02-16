@@ -9,9 +9,9 @@ class ComputerDbOfflineDecorator(
     private val subject: ComputerDbInteractorInterface
 ): ComputerDbInteractorInterface {
 
-    override fun getComputers(): Single<ComputerList> {
+    override fun getComputers(page: Int, filter: String): Single<ComputerList> {
         Log.d("###", javaClass.simpleName + ":" + "getComputers()")
-        return subject.getComputers()
+        return subject.getComputers(page, filter)
     }
 
     override fun getComputerDetail(id: Int): Single<ComputerDetail> {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/computerListFragment">
+
+    <fragment
+        android:id="@+id/computerListFragment"
+        android:name="com.example.computerdatabase.ui.computerList.ComputerListFragment"
+        android:label="Computers"
+        tools:layout="@layout/fragment_computer_list">
+        <action
+            android:id="@+id/navigateToDetailFragment"
+            app:destination="@+id/computerDetailFragment">
+            <argument
+                android:name="count"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/computerDetailFragment"
+        android:name="com.example.computerdatabase.ui.computerDetail.ComputerDetailFragment"
+        android:label="fragment_computer_detail"
+        tools:layout="@layout/fragment_computer_detail">
+        <argument
+            android:name="count"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/toDetail"
+            app:destination="@id/computerDetailFragment">
+            <argument
+                android:name="count"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+</navigation>

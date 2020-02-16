@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.computerdatabase.ui.computerList.adapter.ComputerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/groupName"
+            android:layout_width="@dimen/defZero"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/defMiddle"
+            android:layout_marginTop="@dimen/defSmall"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/imageRight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_computer_title_name"
+                android:textAppearance="@style/TextHeader" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextBody"
+                app:mutableText="@{vm.name}"
+                tools:text="ComputerName" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/groupCompany"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/defMiddle"
+            android:layout_marginTop="@dimen/defSmall"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintEnd_toStartOf="@id/imageRight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/groupName"
+            app:visibilityT="@{vm.companyVisibility}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item_computer_title_company"
+                android:textAppearance="@style/TextHeader" />
+
+            <TextView
+                android:id="@+id/tvCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextBody"
+                app:mutableText="@{vm.company}"
+                tools:text="Company" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/defDivider"
+            android:layout_marginStart="@dimen/defSmall"
+            android:layout_marginTop="@dimen/defSmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/groupCompany" />
+
+        <ImageView
+            android:id="@+id/imageRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

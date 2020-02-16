@@ -1,6 +1,5 @@
 package com.example.computerdatabase.interactor
 
-import android.util.Log
 import com.example.computerdatabase.entity.ComputerDetail
 import com.example.computerdatabase.entity.ComputerList
 import com.example.computerdatabase.repository.NetworkRepositoryInterface
@@ -11,13 +10,11 @@ class ComputerDbInteractor @Inject constructor(
     private val repository: NetworkRepositoryInterface
 ): ComputerDbInteractorInterface {
 
-    override fun getComputers(): Single<ComputerList> {
-//        Log.d("###", javaClass.simpleName + ":" + "getComputers()")
-        return repository.getComputers()
+    override fun getComputers(page: Int, filter: String): Single<ComputerList> {
+        return repository.getComputers(page, filter)
     }
 
     override fun getComputerDetail(id: Int): Single<ComputerDetail> {
-//        Log.d("###", javaClass.simpleName + ":" + "getComputerDetail()")
         return repository.getComputerDetail(id)
     }
 }

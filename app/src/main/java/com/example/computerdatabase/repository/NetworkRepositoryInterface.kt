@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface NetworkRepositoryInterface {
 
-    fun getComputers(): Single<ComputerList>
+    fun getComputers(page: Int, filter: String): Single<ComputerList>
     fun getComputerDetail(id: Int): Single<ComputerDetail>
     fun getSimilar(id: Int): Single<List<Computer>>
 

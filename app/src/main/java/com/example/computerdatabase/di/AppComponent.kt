@@ -1,16 +1,16 @@
 package com.example.computerdatabase.di
 
-import com.example.computerdatabase.MainActivity
+import com.example.computerdatabase.ui.computerList.ComputerListDataSource
+import com.example.computerdatabase.ui.computerList.ComputerListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, RepositoryModule::class, InteractorModule::class])
+@Component(modules = [NetworkModule::class, RepositoryModule::class, InteractorModule::class, PagingModule::class])
 interface AppComponent {
 
-    fun inject(mainActivity: MainActivity)
-
-//    fun inject(target: MainViewModel)
+    fun inject(target: ComputerListViewModel)
+    fun inject(target: ComputerListDataSource)
 
     @Component.Builder
     interface Builder {
