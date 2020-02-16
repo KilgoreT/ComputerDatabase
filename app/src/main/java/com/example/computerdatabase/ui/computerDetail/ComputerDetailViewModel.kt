@@ -3,6 +3,7 @@ package com.example.computerdatabase.ui.computerDetail
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.example.computerdatabase.App
+import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail
 import com.example.computerdatabase.interactor.ComputerDbInteractorInterface
 import com.example.computerdatabase.ui.base.BaseViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class ComputerDetailViewModel: BaseViewModel() {
 
     val detailLiveData = MutableLiveData<ComputerDetail>()
+    val similarLiveData = MutableLiveData<List<Computer>>()
 
     @Inject
     lateinit var interactor: ComputerDbInteractorInterface
@@ -30,13 +32,28 @@ class ComputerDetailViewModel: BaseViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                setupData(it)
+                setupDetail(it)
             }, {
 
             })
     }
 
-    private fun setupData(data: ComputerDetail) {
+    fun loadSimilar(id: Int) {
+        interactor.getSimilar(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setupSimilar(it)
+            }, {
+
+            })
+    }
+
+    private fun setupSimilar(data: List<Computer>) {
+        similarLiveData.postValue(data)
+    }
+
+    private fun setupDetail(data: ComputerDetail) {
         detailLiveData.postValue(data)
     }
 }

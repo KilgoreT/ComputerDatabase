@@ -5,16 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.computerdatabase.R
+import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail
+import com.google.android.material.chip.Chip
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_image.view.*
 import kotlinx.android.synthetic.main.item_info.view.*
+import kotlinx.android.synthetic.main.item_similar.view.*
 
-class ComputerDetailAdapter: RecyclerView.Adapter<ComputerDetailAdapter.DetailViewHolder>() {
+class ComputerDetailAdapter(
+    val listener: ComputerDetailAdapterListener
+): RecyclerView.Adapter<ComputerDetailAdapter.DetailViewHolder>() {
 
     val list = mutableListOf<DetailData>()
+    val similarList = mutableListOf<Computer>()
 
     fun setData(detail: ComputerDetail) {
+        list.clear()
         if (detail.imageUrl != null) {
             list.add(ImageData(detail.imageUrl ?: return))
         }
@@ -32,6 +39,12 @@ class ComputerDetailAdapter: RecyclerView.Adapter<ComputerDetailAdapter.DetailVi
         }
         list.add(SimilarData(detail.id))
         notifyDataSetChanged()
+    }
+
+    fun setSimilar(data: List<Computer>) {
+        similarList.clear()
+        similarList.addAll(data)
+        notifyItemChanged(list.size - 1)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -52,7 +65,7 @@ class ComputerDetailAdapter: RecyclerView.Adapter<ComputerDetailAdapter.DetailVi
             0 -> ImageViewHolder(inflater.inflate(R.layout.item_image, parent, false))
             1 -> InfoViewHolder(inflater.inflate(R.layout.item_info, parent, false))
             2 -> DescriptionViewHolder(inflater.inflate(R.layout.item_description, parent, false))
-            3 -> SimilarViewHolder(inflater.inflate(R.layout.item_similar, parent, false))
+            3 -> SimilarViewHolder(inflater.inflate(R.layout.item_similar, parent, false), listener)
             else -> {throw IllegalArgumentException("Unknown Data")}
         }
 
@@ -62,6 +75,10 @@ class ComputerDetailAdapter: RecyclerView.Adapter<ComputerDetailAdapter.DetailVi
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
         val data = list.get(position)
+        if (position == list.size - 1 && holder is SimilarViewHolder && similarList.size > 0) {
+            holder.setSimilar(similarList)
+            return
+        }
         holder.bind(data)
     }
 
@@ -93,10 +110,34 @@ class ComputerDetailAdapter: RecyclerView.Adapter<ComputerDetailAdapter.DetailVi
             }
         }
     }
-    class SimilarViewHolder(itemView: View): DetailViewHolder(itemView) {
+    class SimilarViewHolder(itemView: View, private val listener: ComputerDetailAdapterListener): DetailViewHolder(itemView) {
         override fun bind(detailData: DetailData) {
-
+            if (detailData is SimilarData) {
+                if (itemView.chipGroup.childCount > 0) {
+                    return
+                }
+                itemView.loading.visibility = View.VISIBLE
+                listener.loadSimilar(detailData.id)
+            }
         }
+
+        fun setSimilar(similarList: List<Computer>) {
+            itemView.loading.visibility = View.GONE
+            itemView.chipGroup.removeAllViews()
+            for (item in similarList) {
+                val chip = Chip(itemView.context)
+                chip.text = item.name
+                chip.setOnClickListener {
+                    listener.onSimilarClick(item.id, item.name)
+                }
+                itemView.chipGroup.addView(chip)
+            }
+        }
+    }
+
+    interface ComputerDetailAdapterListener {
+        fun loadSimilar(id: Int)
+        fun onSimilarClick(id: Int, name: String)
     }
 }
 

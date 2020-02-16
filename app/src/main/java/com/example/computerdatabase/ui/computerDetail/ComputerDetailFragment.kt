@@ -1,7 +1,6 @@
 package com.example.computerdatabase.ui.computerDetail
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +12,14 @@ import androidx.navigation.fragment.navArgs
 import com.example.computerdatabase.R
 import kotlinx.android.synthetic.main.fragment_computer_detail.*
 
-class ComputerDetailFragment : Fragment() {
+class ComputerDetailFragment : Fragment(), ComputerDetailAdapter.ComputerDetailAdapterListener {
 
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: OnComputerDetailListener? = null
 
     private val model: ComputerDetailViewModel by viewModels()
     private val args: ComputerDetailFragmentArgs by navArgs()
 
-    private val adapter = ComputerDetailAdapter()
+    private val adapter = ComputerDetailAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +37,14 @@ class ComputerDetailFragment : Fragment() {
         model.detailLiveData.observe(this, Observer {
             adapter.setData(it)
         })
+        model.similarLiveData.observe(this, Observer {
+            adapter.setSimilar(it)
+        })
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
+        if (context is OnComputerDetailListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnComputerListListener")
@@ -54,8 +56,15 @@ class ComputerDetailFragment : Fragment() {
         listener = null
     }
 
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+    override fun loadSimilar(id: Int) {
+        model.loadSimilar(id)
+    }
+
+    override fun onSimilarClick(id: Int, name: String) {
+        listener?.navigateToSimilar(id, name)
+    }
+
+    interface OnComputerDetailListener {
+        fun navigateToSimilar(id: Int, name: String)
     }
 }

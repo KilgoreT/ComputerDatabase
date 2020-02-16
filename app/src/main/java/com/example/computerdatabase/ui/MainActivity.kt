@@ -1,6 +1,5 @@
 package com.example.computerdatabase.ui
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -17,12 +16,7 @@ import com.example.computerdatabase.ui.computerList.ComputerListFragmentDirectio
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), ComputerListFragment.OnComputerListListener,
-    ComputerDetailFragment.OnFragmentInteractionListener {
-
-
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    ComputerDetailFragment.OnComputerDetailListener {
 
     @Inject
     lateinit var interactor: ComputerDbInteractorInterface
@@ -65,6 +59,13 @@ class MainActivity : AppCompatActivity(), ComputerListFragment.OnComputerListLis
     }
 
     override fun navigateToComputerDetail(id: Int, name: String) {
+        val direction = getNavDirection(id, name)
+        if (direction != null) {
+            getNavController().navigate(direction)
+        }
+    }
+
+    override fun navigateToSimilar(id: Int, name: String) {
         val direction = getNavDirection(id, name)
         if (direction != null) {
             getNavController().navigate(direction)

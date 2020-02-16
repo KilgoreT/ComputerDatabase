@@ -1,5 +1,6 @@
 package com.example.computerdatabase.interactor
 
+import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail
 import com.example.computerdatabase.entity.ComputerList
 import com.example.computerdatabase.repository.NetworkRepositoryInterface
@@ -16,5 +17,9 @@ class ComputerDbInteractor @Inject constructor(
 
     override fun getComputerDetail(id: Int): Single<ComputerDetail> {
         return networkRepository.getComputerDetail(id)
+    }
+
+    override fun getSimilar(id: Int): Single<List<Computer>> {
+        return networkRepository.getSimilar(id)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.computerdatabase.interactor
 
+import com.example.computerdatabase.entity.Computer
 import com.example.computerdatabase.entity.ComputerDetail
 import com.example.computerdatabase.entity.ComputerList
 import com.example.computerdatabase.repository.DatabaseRepositoryInterface
@@ -22,5 +23,9 @@ class ComputerDbOfflineDecorator(
                         repository.saveComputerDetail(it)
                     }
             }
+    }
+
+    override fun getSimilar(id: Int): Single<List<Computer>> {
+        return subject.getSimilar(id)
     }
 }
